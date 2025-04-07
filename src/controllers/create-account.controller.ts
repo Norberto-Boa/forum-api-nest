@@ -1,5 +1,7 @@
 import { Body, ConflictException, Controller, HttpCode, Post } from '@nestjs/common'
 import { PrismaService } from 'src/prisma/prisma.service'
+import {hash} from "bcryptjs";
+
 
 @Controller('/accounts')
 export class CreateAcccountController {
@@ -20,11 +22,13 @@ export class CreateAcccountController {
 			throw new ConflictException("User with same email already exists")
 		}
 
+    const hashedPassword = await hash(password, 8);
+
 		await this.prisma.user.create({
 			data: {
 				name,
         email,
-        password,
+        password: hashedPassword,
 			}
 		})
   }
