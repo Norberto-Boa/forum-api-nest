@@ -1,7 +1,7 @@
 @baseUrl = http://localhost:3333
 
-@name create_account
-POST {{{{baseUrl}}}}/accounts
+#@name create_account
+POST {{baseUrl}}/accounts
 Content-Type: application/json
 
 {
