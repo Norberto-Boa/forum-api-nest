@@ -13,8 +13,8 @@ import { PrismaService } from '@/prisma/prisma.service';
 import { z } from 'zod';
 
 const createQuestionBodySchema = z.object({
-  title: z.string(),
-  content: z.string(),
+  title: z.string().trim().min(1),
+  content: z.string().trim().min(10),
 });
 
 export type CreateQuestionBodySchema = z.infer<typeof createQuestionBodySchema>;
