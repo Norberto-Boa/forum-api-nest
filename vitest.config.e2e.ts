@@ -1,3 +1,4 @@
+import path from 'path';
 import swc from 'unplugin-swc';
 import { defineConfig } from 'vitest/config';
 
@@ -6,16 +7,17 @@ export default defineConfig({
     include: ['**/*.e2e-spec.ts'],
     globals: true,
     alias: {
-      '@src': './src',
-      '@test': './test',
+      '@': path.resolve(__dirname, './src'),
+      '@test': path.resolve(__dirname, './test'),
     },
+
     root: './',
     setupFiles: ['./test/setup-e2e.ts'],
   },
   resolve: {
     alias: {
-      '@src': './src',
-      '@test': './test',
+      '@': path.resolve(__dirname, './src'),
+      '@test': path.resolve(__dirname, './test'),
     },
   },
   plugins: [swc.vite()],
