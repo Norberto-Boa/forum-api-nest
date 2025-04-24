@@ -7,15 +7,15 @@ import { InMemoryAnswerAttachmentsRepository } from 'test/repositories/in-memory
 
 let inMemoryAnswerCommentsRepository: InMemoryAnswerCommentsRepository;
 let inMemoryAnswersRepository: InMemoryAnswersRepository;
-let inMemoryAnswerAttachmentRepository: InMemoryAnswerAttachmentsRepository;
+let inMemoryAnswerAttachmentsRepository: InMemoryAnswerAttachmentsRepository;
 let sut: CommentOnAnswerService;
 
 describe('CommentOnAnswerService', () => {
   beforeEach(() => {
-    inMemoryAnswerAttachmentRepository =
+    inMemoryAnswerAttachmentsRepository =
       new InMemoryAnswerAttachmentsRepository();
     inMemoryAnswersRepository = new InMemoryAnswersRepository(
-      inMemoryAnswerAttachmentRepository,
+      inMemoryAnswerAttachmentsRepository,
     );
     inMemoryAnswerCommentsRepository = new InMemoryAnswerCommentsRepository();
     sut = new CommentOnAnswerService(

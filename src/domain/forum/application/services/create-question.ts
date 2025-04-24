@@ -1,6 +1,6 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import { Question } from '@/domain/forum/enterprise/entities/question';
-import type { QuestionRepository } from '../repositories/questions-repository';
+import type { QuestionsRepository } from '../repositories/questions-repository';
 import { right, type Either } from '@/core/either';
 import { QuestionAttachment } from '../../enterprise/entities/question-attachment';
 import { QuestionAttachmentList } from '../../enterprise/entities/question-attachment-list';
@@ -20,7 +20,7 @@ type CreateQuestionServiceResponse = Either<
 >;
 
 export class CreateQuestionService {
-  constructor(private questionRepository: QuestionRepository) {}
+  constructor(private QuestionsRepository: QuestionsRepository) {}
   async execute({
     authorId,
     content,
@@ -42,7 +42,7 @@ export class CreateQuestionService {
 
     question.attachments = new QuestionAttachmentList(questionAttachments);
 
-    await this.questionRepository.create(question);
+    await this.QuestionsRepository.create(question);
 
     return right({ question });
   }

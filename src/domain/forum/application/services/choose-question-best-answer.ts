@@ -1,7 +1,7 @@
 import { left, right, type Either } from '@/core/either';
 import type { Answer } from '../../enterprise/entities/answer';
 import type { AnswersRepository } from '../repositories/answers-repository';
-import type { QuestionRepository } from '../repositories/questions-repository';
+import type { QuestionsRepository } from '../repositories/questions-repository';
 import { ResourceNotFoundError } from '@/core/errors/errors/resource-not-found-error';
 import { NotAllowedError } from '@/core/errors/errors/not-allowed-error';
 
@@ -19,7 +19,7 @@ type ChooseBestAnswerServiceResponse = Either<
 
 export class ChooseBestAnswerService {
   constructor(
-    private questionsRepository: QuestionRepository,
+    private questionsRepository: QuestionsRepository,
     private answersRepository: AnswersRepository,
   ) {}
 

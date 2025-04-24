@@ -1,5 +1,5 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
-import type { QuestionRepository } from '../repositories/questions-repository';
+import type { QuestionsRepository } from '../repositories/questions-repository';
 import { QuestionComment } from '../../enterprise/entities/question-comment';
 import type { QuestionCommentsRepository } from '../repositories/question-comments-repository';
 import { left, right, type Either } from '@/core/either';
@@ -20,7 +20,7 @@ type CommentOnQuestionServiceResponse = Either<
 
 export class CommentOnQuestionService {
   constructor(
-    private questionRepository: QuestionRepository,
+    private QuestionsRepository: QuestionsRepository,
     private questionCommentRepository: QuestionCommentsRepository,
   ) {}
 
@@ -29,7 +29,7 @@ export class CommentOnQuestionService {
     content,
     questionId,
   }: CommentOnQuestionServiceRequest): Promise<CommentOnQuestionServiceResponse> {
-    const question = await this.questionRepository.findById(questionId);
+    const question = await this.QuestionsRepository.findById(questionId);
 
     if (!question) {
       return left(new ResourceNotFoundError());

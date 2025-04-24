@@ -1,7 +1,7 @@
 import type { PaginationParams } from '@/core/repositories/pagination-params';
 import type { Question } from '@/domain/forum/enterprise/entities/question';
 
-export interface QuestionRepository {
+export interface QuestionsRepository {
   findById(id: string): Promise<Question | null>;
   create(question: Question): Promise<void>;
   findManyRecent(params: PaginationParams): Promise<Question[]>;

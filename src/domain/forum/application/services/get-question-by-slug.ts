@@ -1,4 +1,4 @@
-import type { QuestionRepository } from '../repositories/questions-repository';
+import type { QuestionsRepository } from '../repositories/questions-repository';
 import { Question } from '../../enterprise/entities/question';
 import { right, type Either } from '@/core/either';
 
@@ -14,7 +14,7 @@ type GetQuestionBySlugServiceResponse = Either<
 >;
 
 export class GetQuestionBySlugService {
-  constructor(private answersRepository: QuestionRepository) {}
+  constructor(private answersRepository: QuestionsRepository) {}
   async execute({
     slug,
   }: GetQuestionBySlugServiceRequest): Promise<GetQuestionBySlugServiceResponse> {

@@ -9,21 +9,21 @@ import { InMemoryAnswerAttachmentsRepository } from 'test/repositories/in-memory
 
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository;
 let inMemoryAnswersRepository: InMemoryAnswersRepository;
-let inMemoryQuestionAttachmentRepository: InMemoryQuestionAttachmentsRepository;
-let inMemoryAnswerAttachmentRepository: InMemoryAnswerAttachmentsRepository;
+let inMemoryQuestionAttachmentsRepository: InMemoryQuestionAttachmentsRepository;
+let inMemoryAnswerAttachmentsRepository: InMemoryAnswerAttachmentsRepository;
 let sut: ChooseBestAnswerService;
 
 describe('Choose Question Best Answer', () => {
   beforeEach(() => {
-    inMemoryAnswerAttachmentRepository =
+    inMemoryAnswerAttachmentsRepository =
       new InMemoryAnswerAttachmentsRepository();
-    inMemoryQuestionAttachmentRepository =
+    inMemoryQuestionAttachmentsRepository =
       new InMemoryQuestionAttachmentsRepository();
     inMemoryQuestionsRepository = new InMemoryQuestionsRepository(
-      inMemoryQuestionAttachmentRepository,
+      inMemoryQuestionAttachmentsRepository,
     );
     inMemoryAnswersRepository = new InMemoryAnswersRepository(
-      inMemoryAnswerAttachmentRepository,
+      inMemoryAnswerAttachmentsRepository,
     );
     sut = new ChooseBestAnswerService(
       inMemoryQuestionsRepository,

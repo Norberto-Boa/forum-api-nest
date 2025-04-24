@@ -5,16 +5,16 @@ import { Slug } from '../../enterprise/entities/value-objects/slug';
 import { InMemoryQuestionAttachmentsRepository } from 'test/repositories/in-memory-question-attachments-repository';
 
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository;
-let inMemoryQuestionAttachmentRepository: InMemoryQuestionAttachmentsRepository;
+let inMemoryQuestionAttachmentsRepository: InMemoryQuestionAttachmentsRepository;
 let sut: GetQuestionBySlugService;
 
 describe('GetQuestionBySlugService', () => {
   beforeEach(() => {
-    inMemoryQuestionAttachmentRepository =
+    inMemoryQuestionAttachmentsRepository =
       new InMemoryQuestionAttachmentsRepository();
 
     inMemoryQuestionsRepository = new InMemoryQuestionsRepository(
-      inMemoryQuestionAttachmentRepository,
+      inMemoryQuestionAttachmentsRepository,
     );
     sut = new GetQuestionBySlugService(inMemoryQuestionsRepository);
   });

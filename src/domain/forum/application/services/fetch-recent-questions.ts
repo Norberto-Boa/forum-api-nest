@@ -1,4 +1,4 @@
-import type { QuestionRepository } from '../repositories/questions-repository';
+import type { QuestionsRepository } from '../repositories/questions-repository';
 import { Question } from '../../enterprise/entities/question';
 import { right, type Either } from '@/core/either';
 
@@ -14,7 +14,7 @@ type FetchRecentQuestionsServiceResponse = Either<
 >;
 
 export class FetchRecentQuestionsService {
-  constructor(private questionsRepository: QuestionRepository) {}
+  constructor(private questionsRepository: QuestionsRepository) {}
   async execute({
     page,
   }: FetchRecentQuestionsServiceRequest): Promise<FetchRecentQuestionsServiceResponse> {

@@ -14,13 +14,13 @@ type DeleteCommentOnQuestionServiceResponse = Either<
 >;
 
 export class DeleteCommentOnQuestionService {
-  constructor(private questionRepository: QuestionCommentsRepository) {}
+  constructor(private QuestionsRepository: QuestionCommentsRepository) {}
 
   async execute({
     authorId,
     commentId,
   }: DeleteCommentOnQuestionServiceRequest): Promise<DeleteCommentOnQuestionServiceResponse> {
-    const comment = await this.questionRepository.findById(commentId);
+    const comment = await this.QuestionsRepository.findById(commentId);
 
     if (!comment) {
       return left(new ResourceNotFoundError());
@@ -30,7 +30,7 @@ export class DeleteCommentOnQuestionService {
       return left(new NotAllowedError());
     }
 
-    await this.questionRepository.delete(comment);
+    await this.QuestionsRepository.delete(comment);
 
     return right(null);
   }

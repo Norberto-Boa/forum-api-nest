@@ -7,16 +7,16 @@ import { InMemoryQuestionAttachmentsRepository } from 'test/repositories/in-memo
 
 let inMemoryQuestionCommentsRepository: InMemoryQuestionCommentsRepository;
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository;
-let inMemoryQuestionAttachmentRepository: InMemoryQuestionAttachmentsRepository;
+let inMemoryQuestionAttachmentsRepository: InMemoryQuestionAttachmentsRepository;
 let sut: CommentOnQuestionService;
 
 describe('CommentOnQuestionService', () => {
   beforeEach(() => {
-    inMemoryQuestionAttachmentRepository =
+    inMemoryQuestionAttachmentsRepository =
       new InMemoryQuestionAttachmentsRepository();
 
     inMemoryQuestionsRepository = new InMemoryQuestionsRepository(
-      inMemoryQuestionAttachmentRepository,
+      inMemoryQuestionAttachmentsRepository,
     );
     inMemoryQuestionCommentsRepository =
       new InMemoryQuestionCommentsRepository();

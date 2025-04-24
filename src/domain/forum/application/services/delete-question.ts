@@ -1,5 +1,5 @@
 import { left, right, type Either } from '@/core/either';
-import type { QuestionRepository } from '../repositories/questions-repository';
+import type { QuestionsRepository } from '../repositories/questions-repository';
 import { ResourceNotFoundError } from '@/core/errors/errors/resource-not-found-error';
 import { NotAllowedError } from '@/core/errors/errors/not-allowed-error';
 
@@ -14,13 +14,13 @@ type DeleteQuestionServiceResponse = Either<
 >;
 
 export class DeleteQuestionService {
-  constructor(private questionRepository: QuestionRepository) {}
+  constructor(private QuestionsRepository: QuestionsRepository) {}
 
   async execute({
     authorId,
     questionId,
   }: DeleteQuestionServiceRequest): Promise<DeleteQuestionServiceResponse> {
-    const question = await this.questionRepository.findById(
+    const question = await this.QuestionsRepository.findById(
       questionId.toString(),
     );
 
@@ -32,7 +32,7 @@ export class DeleteQuestionService {
       return left(new NotAllowedError());
     }
 
-    await this.questionRepository.delete(question);
+    await this.QuestionsRepository.delete(question);
 
     return right(null);
   }

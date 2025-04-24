@@ -5,16 +5,16 @@ import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import { InMemoryAnswerAttachmentsRepository } from 'test/repositories/in-memory-answer-attachments-repository';
 
 let inMemoryAnswersRepository: InMemoryAnswersRepository;
-let inMemoryAnswerAttachmentRepository: InMemoryAnswerAttachmentsRepository;
+let inMemoryAnswerAttachmentsRepository: InMemoryAnswerAttachmentsRepository;
 let sut: FetchQuestionAnswersService;
 
 describe('FetchQuestionAnswersQuestions', () => {
   beforeEach(() => {
-    inMemoryAnswerAttachmentRepository =
+    inMemoryAnswerAttachmentsRepository =
       new InMemoryAnswerAttachmentsRepository();
 
     inMemoryAnswersRepository = new InMemoryAnswersRepository(
-      inMemoryAnswerAttachmentRepository,
+      inMemoryAnswerAttachmentsRepository,
     );
     sut = new FetchQuestionAnswersService(inMemoryAnswersRepository);
   });

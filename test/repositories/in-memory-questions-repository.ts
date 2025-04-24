@@ -1,10 +1,10 @@
 import { DomainEvents } from '@/core/events/domain-events';
 import type { PaginationParams } from '@/core/repositories/pagination-params';
-import { QuestionAttachmentRepository } from '@/domain/forum/application/repositories/question-attachments-repository';
-import type { QuestionRepository } from '@/domain/forum/application/repositories/questions-repository';
+import { QuestionAttachmentsRepository } from '@/domain/forum/application/repositories/question-attachments-repository';
+import type { QuestionsRepository } from '@/domain/forum/application/repositories/questions-repository';
 import type { Question } from '@/domain/forum/enterprise/entities/question';
 
-export class InMemoryQuestionsRepository implements QuestionRepository {
+export class InMemoryQuestionsRepository implements QuestionsRepository {
   public items: Question[] = [];
 
   async create(question: Question): Promise<void> {
@@ -12,7 +12,7 @@ export class InMemoryQuestionsRepository implements QuestionRepository {
   }
 
   constructor(
-    private questionAttachmentsRepository: QuestionAttachmentRepository,
+    private questionAttachmentsRepository: QuestionAttachmentsRepository,
   ) {}
 
   async findBySlug(slug: string): Promise<Question | null> {
