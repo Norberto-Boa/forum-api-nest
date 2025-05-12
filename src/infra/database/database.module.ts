@@ -19,7 +19,6 @@ import { PrismaQuestionAttachments } from './prisma/repositories/forum/prisma-qu
   ],
   exports: [
     PrismaService,
-    PrismaService,
     PrismaAnswerAttachmentsRepository,
     PrismaAnswerCommentsRepository,
     PrismaAnswersRepository,
