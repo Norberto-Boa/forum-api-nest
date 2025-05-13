@@ -1,6 +1,7 @@
-import type { QuestionsRepository } from '../repositories/questions-repository';
+import { QuestionsRepository } from '../repositories/questions-repository';
 import { Question } from '../../enterprise/entities/question';
 import { right, type Either } from '@/core/either';
+import { Injectable } from '@nestjs/common';
 
 interface FetchRecentQuestionsServiceRequest {
   page: number;
@@ -13,6 +14,7 @@ type FetchRecentQuestionsServiceResponse = Either<
   }
 >;
 
+@Injectable()
 export class FetchRecentQuestionsService {
   constructor(private questionsRepository: QuestionsRepository) {}
   async execute({
