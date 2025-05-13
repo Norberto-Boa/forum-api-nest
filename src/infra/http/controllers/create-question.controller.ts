@@ -1,16 +1,10 @@
-import {
-  Body,
-  Controller,
-  Post,
-  UnauthorizedException,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { CurrentUser } from '@/infra/auth/current-user.decorator';
 import { JwtAuthGuard } from '@/infra/auth/jwt-auth.guard';
 import type { TokenPayload } from '@/infra/auth/jwt.strategy';
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe';
-import { PrismaService } from '@/infra/database/prisma/prisma.service';
 import { z } from 'zod';
+import { CreateQuestionService } from '@/domain/forum/application/services/create-question';
 
 const createQuestionBodySchema = z.object({
   title: z.string().trim().min(1),
@@ -23,7 +17,7 @@ const bodyValidationPipe = new ZodValidationPipe(createQuestionBodySchema);
 @Controller('/questions')
 @UseGuards(JwtAuthGuard)
 export class CreateQuestionController {
-  constructor(private prisma: PrismaService) {}
+  constructor(private createQuestion: CreateQuestionService) {}
 
   @Post()
   async handle(
@@ -32,39 +26,13 @@ export class CreateQuestionController {
   ) {
     const { title, content } = body;
 
-    const userExists = this.prisma.user.findUnique({
-      where: {
-        id: user.sub,
-      },
-    });
-
-    if (!userExists) {
-      throw new UnauthorizedException(
-        'Must be a real user to create a question',
-      );
-    }
-
-    const question = await this.prisma.question.create({
-      data: {
-        title,
-        content,
-        slug: this.convertToSlug(title),
-        authorId: user.sub,
-      },
+    const question = await this.createQuestion.execute({
+      title,
+      content,
+      authorId: user.sub,
+      attachmentsIds: [],
     });
 
     return { question };
-  }
-
-  private convertToSlug(title: string): string {
-    return title
-      .normalize('NFKD')
-      .toLowerCase()
-      .trim()
-      .replace(/\s+/g, '-') // Remove whitespaces
-      .replace(/[^\w-]+/g, '') // Get everything that isn't a word
-      .replace(/_/g, '-') // Get all underscore and change to hifen
-      .replace(/--+/g, '-') // Remove duplicates hifens
-      .replace(/-$/g, ''); // ;
   }
 }

@@ -1,9 +1,10 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import { Question } from '@/domain/forum/enterprise/entities/question';
-import type { QuestionsRepository } from '../repositories/questions-repository';
+import { QuestionsRepository } from '../repositories/questions-repository';
 import { right, type Either } from '@/core/either';
 import { QuestionAttachment } from '../../enterprise/entities/question-attachment';
 import { QuestionAttachmentList } from '../../enterprise/entities/question-attachment-list';
+import { Injectable } from '@nestjs/common';
 
 interface CreateQuestionServiceRequest {
   authorId: string;
@@ -19,8 +20,9 @@ type CreateQuestionServiceResponse = Either<
   }
 >;
 
+@Injectable()
 export class CreateQuestionService {
-  constructor(private QuestionsRepository: QuestionsRepository) {}
+  constructor(private questionsRepository: QuestionsRepository) {}
   async execute({
     authorId,
     content,
@@ -42,7 +44,7 @@ export class CreateQuestionService {
 
     question.attachments = new QuestionAttachmentList(questionAttachments);
 
-    await this.QuestionsRepository.create(question);
+    await this.questionsRepository.create(question);
 
     return right({ question });
   }
