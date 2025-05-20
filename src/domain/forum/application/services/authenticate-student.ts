@@ -6,12 +6,12 @@ import type { HashComparer } from '../cryptography/hash-comparer';
 import type { Encrypter } from '../cryptography/encrypter';
 import { WrongCredentialsError } from './errors/wrong-credentials-error';
 
-interface authenticateStudentServiceRequest {
+interface AuthenticateStudentServiceRequest {
   email: string;
   password: string;
 }
 
-type authenticateStudentServiceResponse = Either<
+type AuthenticateStudentServiceResponse = Either<
   StudentAlreadyExistsError,
   {
     accessToken: string;
@@ -19,7 +19,7 @@ type authenticateStudentServiceResponse = Either<
 >;
 
 @Injectable()
-export class authenticateStudentService {
+export class AuthenticateStudentService {
   constructor(
     private studentsRepository: StudentsRepository,
     private hashComparer: HashComparer,
@@ -29,7 +29,7 @@ export class authenticateStudentService {
   async execute({
     email,
     password,
-  }: authenticateStudentServiceRequest): Promise<authenticateStudentServiceResponse> {
+  }: AuthenticateStudentServiceRequest): Promise<AuthenticateStudentServiceResponse> {
     const student = await this.studentsRepository.findByEmail(email);
 
     if (!student) {
