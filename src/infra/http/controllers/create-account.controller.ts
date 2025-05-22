@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   ConflictException,
   Controller,
@@ -9,6 +10,7 @@ import {
 import { z } from 'zod';
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe';
 import { RegisterStudentService } from '@/domain/forum/application/services/register-student';
+import { StudentAlreadyExistsError } from '@/domain/forum/application/services/errors/student-already-exists-error';
 
 const createAccountBodySchema = z.object({
   name: z.string(),
@@ -35,7 +37,14 @@ export class CreateAcccountController {
     });
 
     if (result.isLeft()) {
-      throw new ConflictException();
+      const error = result.value;
+
+      switch (error.constructor) {
+        case StudentAlreadyExistsError:
+          throw new ConflictException('Student with same email already exists');
+        default:
+          throw new BadRequestException('Something went wrong');
+      }
     }
   }
 }
