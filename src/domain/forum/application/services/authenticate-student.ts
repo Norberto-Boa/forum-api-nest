@@ -2,8 +2,8 @@ import { left, right, type Either } from '@/core/either';
 import { Injectable } from '@nestjs/common';
 import { StudentsRepository } from '../repositories/students-repository';
 import { StudentAlreadyExistsError } from './errors/student-already-exists-error';
-import type { HashComparer } from '../cryptography/hash-comparer';
-import type { Encrypter } from '../cryptography/encrypter';
+import { HashComparer } from '../cryptography/hash-comparer';
+import { Encrypter } from '../cryptography/encrypter';
 import { WrongCredentialsError } from './errors/wrong-credentials-error';
 
 interface AuthenticateStudentServiceRequest {
